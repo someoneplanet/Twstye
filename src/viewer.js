@@ -1,4 +1,4 @@
-import { loadOBJWithMTL } from './objLoader.js';
+import { loadOBJWithMTL, loadOBJFromText } from './objLoader.js';
 
 // Scene setup
 const scene = new THREE.Scene();
@@ -49,6 +49,16 @@ document.getElementById('loadBtn').addEventListener('click', () => {
         loadOBJWithMTL(objURL, mtlURL, scene);
     } else {
         alert('Please select both OBJ and MTL files.');
+    }
+});
+
+// Text input handling
+document.getElementById('loadTextBtn').addEventListener('click', () => {
+    const objText = document.getElementById('objTextInput').value;
+    if (objText.trim()) {
+        loadOBJFromText(objText, scene);
+    } else {
+        alert('Please paste valid OBJ text.');
     }
 });
 
