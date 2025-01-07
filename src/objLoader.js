@@ -1,19 +1,20 @@
-export function loadOBJFromFile(file, scene) {
-    const reader = new FileReader();
-    reader.onload = (event) => {
-        const objLoader = new THREE.OBJLoader();
-        const object = objLoader.parse(event.target.result);
-        clearScene(scene);
-        scene.add(object);
-    };
-    reader.readAsText(file);
-}
+export function loadOBJWithMTL(objPath, mtlPath, scene) {
+    const mtlLoader = new THREE.MTLLoader();
+    mtlLoader.load(mtlPath, (materials) => {
+        materials.preload();
 
-export function loadOBJFromText(objText, scene) {
-    const objLoader = new THREE.OBJLoader();
-    const object = objLoader.parse(objText);
-    clearScene(scene);
-    scene.add(object);
+        const objLoader = new THREE.OBJLoader();
+        objLoader.setMaterials(materials);
+
+        objLoader.load(objPath, (object) => {
+            clearScene(scene);
+            scene.add(object);
+        }, undefined, (error) => {
+            console.error('Error loading OBJ file:', error);
+        });
+    }, undefined, (error) => {
+        console.error('Error loading MTL file:', error);
+    });
 }
 
 function clearScene(scene) {
