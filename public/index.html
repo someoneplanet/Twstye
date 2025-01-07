@@ -23,7 +23,7 @@
             border-radius: 5px;
             font-family: Arial, sans-serif;
         }
-        input {
+        input, textarea {
             display: block;
             margin-bottom: 10px;
         }
@@ -34,9 +34,16 @@
 </head>
 <body>
     <div id="ui">
+        <h3>Load OBJ and MTL</h3>
+        <!-- File upload option -->
         <input type="file" id="objInput" accept=".obj">
         <input type="file" id="mtlInput" accept=".mtl">
         <button id="loadBtn">Load OBJ + MTL</button>
+
+        <h3>Or Paste OBJ Text</h3>
+        <!-- Text input option for OBJ -->
+        <textarea id="objTextInput" rows="10" cols="30" placeholder="Paste OBJ text here"></textarea>
+        <button id="loadTextBtn">Load from Text</button>
     </div>
     <script>
         import('/src/viewer.js');
